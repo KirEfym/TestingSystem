@@ -1,0 +1,81 @@
+﻿<Window x:Class="WPFTestingSystem.View.CreateTestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFTestingSystem.View"
+        mc:Ignorable="d"
+        Title="CreateTestWindow" Height="450" Width="415">
+    <Window.Resources>
+
+        <Style x:Key="MySimpleScrollBar" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+            <Setter Property="Width" Value="Auto"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Border BorderThickness="1" BorderBrush="Gray">
+                            <Grid Margin="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock  FontSize="20" MinWidth="25" Text="{Binding Value, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                <Grid Grid.Column="1" x:Name="GridRoot" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Background="{TemplateBinding Background}" HorizontalAlignment="Right">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition MaxHeight="18"/>
+                                        <RowDefinition Height="0.00001*"/>
+                                        <RowDefinition MaxHeight="18"/>
+                                    </Grid.RowDefinitions>
+                                    <RepeatButton x:Name="DecreaseRepeat" Command="ScrollBar.LineDownCommand" Focusable="False">
+                                        <Grid>
+                                            <Path x:Name="DecreaseArrow" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" Data="M 0 4 L 8 4 L 4 0 Z"/>
+                                        </Grid>
+                                    </RepeatButton>
+                                    <RepeatButton Grid.Row="2" x:Name="IncreaseRepeat" Command="ScrollBar.LineUpCommand" Focusable="False">
+                                        <Grid>
+                                            <Path x:Name="IncreaseArrow" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" Data="M 0 0 L 4 4 L 8 0 Z"/>
+                                        </Grid>
+                                    </RepeatButton>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <StackPanel Margin="50,20,40,20">
+        <DockPanel LastChildFill="True">
+            <Label DockPanel.Dock="Left">s</Label>
+            <TextBox Background="LightGray" DockPanel.Dock="Left" Text="{Binding TestNameField,Mode=TwoWay}"></TextBox>
+        </DockPanel>
+        <DockPanel Margin="0,10,0,0" LastChildFill="True">
+            <Label DockPanel.Dock="Left">s</Label>
+            <ComboBox DockPanel.Dock="Left" ItemsSource="{Binding Categories}"
+                  DisplayMemberPath="CategoryName"
+                  SelectedValuePath="CategoryName"
+                  SelectedValue="{Binding SelectedCategory,Mode=TwoWay}"></ComboBox>
+        </DockPanel>
+        <DockPanel Margin="0,10,0,0" LastChildFill="True">
+            <Label DockPanel.Dock="Left">s</Label>
+            <TextBox Background="LightGray" MinHeight="100" DockPanel.Dock="Left" Text="{Binding DescriptionField,Mode=TwoWay}"></TextBox>
+        </DockPanel>
+        <DockPanel Margin="0,10,0,0" LastChildFill="True">
+            <Label DockPanel.Dock="Left">s</Label>
+            <ScrollBar x:Name="scrollBar" DockPanel.Dock="Left" Style="{DynamicResource MySimpleScrollBar}" Value="{Binding Percent, Mode=TwoWay}" Maximum="100" Minimum="1"  SmallChange="1" />
+        </DockPanel>
+        <Grid Margin="15,10,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Height="25" Width="auto" Margin="10,0,0,0" Command="{Binding CreateTestCommand}">Ok</Button>
+            <Button Grid.Column="0" Height="25" Width="auto" Margin="0,0,10,0" Command="{Binding CloseWindow}">Cancel</Button>
+        </Grid>
+        <Button Height="25" Margin="15,10,0,0" Command="{Binding AddQuestionsAnswers}">Add questions</Button>
+    </StackPanel>
+</Window>

@@ -1,0 +1,31 @@
+﻿<Window x:Class="WPFTestingSystem.View.EnterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:W="clr-namespace:WPFTestingSystem.CustomControls"
+        xmlns:local="clr-namespace:WPFTestingSystem.View"
+        mc:Ignorable="d"
+        Title="EnterWindow" Height="182" Width="293"
+        ResizeMode="NoResize"
+        Background="LightGray">
+    <StackPanel Background="LightGray" Margin="0,30,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label>Login</Label>
+            <TextBox Margin="0,0,20,0" Background="White" Height="20" Width="200" Text="{Binding Path=Login}"></TextBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label>Password</Label>
+            <W:BindablePasswordBox Margin="0,0,20,0" Background="White" Height="20" Width="200" Password="{Binding Password,UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Label Margin="0,0,35,0">
+                <Hyperlink NavigateUri="">Register</Hyperlink>
+            </Label>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Height="20" Width="70" Margin="0,0,60,0" Command="{Binding CloseCommand}">Cancel</Button>
+            <Button Height="20" Width="70" Margin="0,0,20,0" Command="{Binding LoginCommand}">OK</Button>
+        </StackPanel>
+    </StackPanel>
+</Window>
